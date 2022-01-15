@@ -43,285 +43,285 @@
         ],
       };
 
-      //   const created = '{{created}}'
-      //   const room = '{{room}}'
-      //   let stream;
-      //   let rtcpeerconnection;
-      //   let isCreated;
-      //   const call_btn = document.getElementById("call")
-      //   const our_video = document.getElementById("ours")
-      //   const remote_video = document.getElementById("remote")
-      //   const ws = new WebSocket('ws://127.0.0.1:8000/ws/')
-      //   console.log(created)
-      //   ws.onopen = () =>{
-      //     console.log("opened")
-      //     ws.send(JSON.stringify({
-      //       'command':'join_group',
-      //       'room':room
-      //     }))
-      //     if(created == 'created'){
-      //       isCreated = true;
-      //       console.log(isCreated)
-      //       navigator.mediaDevices.getUserMedia(({
-      //         'video':true,
-      //         'audio':true
-      //       })).then(s =>{
-      //         stream = s
-      //         our_video.srcObject = s
-      //         our_video.onloadedmetadata = () =>{
-      //           our_video.play()
-      //         }
-      //       })
-      //     }
-      //     else{
-      //       isCreated = false
-      //       navigator.mediaDevices.getUserMedia(({
-      //         'video':true,
-      //         'audio':true
-      //       })).then(s =>{
-      //         stream = s
-      //         our_video.srcObject = s
-      //         our_video.onloadedmetadata = () =>{
-      //           our_video.play()
-      //         }
-      //         ws.send(JSON.stringify({
-      //           'command':'join',
-      //           'room':room
-      //         }))
-      //       })
-      //       console.log(isCreated)
-      //     }
-      //   }
-      //   ws.onmessage = (e) =>{
-      //     const data = JSON.parse(e.data)
-      //     console.log(data)
-      //     if(data['command'] == 'ready'){
-      //       if(isCreated){
-      //       call_btn.style.display = 'block'
-      //       }
-      //     }
-      //     else if(data['command'] == 'offer'){
-      //       if(isCreated == false){
-      //         createanswer(data['offer'])
-      //       }
-      //     }
-      //     else if(data['command'] == 'answer'){
-      //       if(isCreated){
-      //         rtcpeerconnection.setRemoteDescription(data['answer'])
-      //       }
-      //     }
-      //     else if(data['command'] == 'candidate'){
-      //       if(data['iscreated'] != isCreated){
-      //         const IceCandidate = new RTCIceCandidate(data['candidate'])
-      //         rtcpeerconnection.addIceCandidate(data['candidate'])
-      //       }
-      //     }
-      //   }
-      //   call_btn.onclick = () =>{
-      //     createoffer()
-      //   }
-      //   function createoffer() {
-      //     rtcpeerconnection = new RTCPeerConnection(iceServers)
-      //     rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
-      //     rtcpeerconnection.ontrack = OnTrackFunction;
-      //     console.log(stream)
-      //     stream.getTracks().forEach(track => {
-      //     rtcpeerconnection.addTrack(track, stream);
-      // });
-      // rtcpeerconnection.createOffer().then(offer =>{
-      //   rtcpeerconnection.setLocalDescription(offer)
-      //   ws.send(JSON.stringify({
-      //     'command':'offer',
-      //     'offer':offer,
-      //     'room':room
-      //   }))
-      // })
-      //   }
-      //   function createanswer(offer) {
-      //     rtcpeerconnection = new RTCPeerConnection(iceServers)
-      //     rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
-      //     rtcpeerconnection.ontrack = OnTrackFunction;
-      //     console.log(stream)
-      //     stream.getTracks().forEach(track => {
-      //     rtcpeerconnection.addTrack(track, stream);
-      // });
-      // rtcpeerconnection.setRemoteDescription(offer)
-      // rtcpeerconnection.createAnswer().then(answer =>{
-      //   rtcpeerconnection.setLocalDescription(answer)
-      //   ws.send(JSON.stringify({
-      //     'command':'answer',
-      //     'answer':answer,
-      //     'room':room
-      //   }))
-      // })
-      //   }
-      //   function OnIceCandidateFunc(e) {
-      //     console.log(e.candidate)
-      //     if(e.candidate){
-      //       ws.send(JSON.stringify({
-      //         'command':'candidate',
-      //         'candidate':e.candidate,
-      //         'iscreated':isCreated,
-      //         'room':room
-      //       }))
-      //     }
-      //   }
-      //   function OnTrackFunction(e) {
-      //     remote_video.srcObject = e.streams[0]
-      //     remote_video.onloadedmetadata = () =>{
-      //       remote_video.play()
-      //     }
-
-      //   }
-      const our_video = document.getElementById("ours");
-      const remote_video = document.getElementById("remote");
-      const call_btn = document.getElementById("call");
-      let stream;
-      let rtcpeerconnection;
-      const created = "{{created}}";
-      const room = "{{room}}";
-      let isCreated;
-      let camera = document.getElementById("camera");
-      camera.onclick = () => {
-        if (stream.getTracks()[1].enabled == true) {
-          stream.getTracks()[1].enabled = false;
-          camera.innerText = "Unmute";
-        } else {
-          stream.getTracks()[1].enabled = true;
-          camera.innerText = "Mute";
-        }
-      };
-
-      const ws = new WebSocket("ws://127.0.0.1:8000/ws/");
-      ws.onopen = () => {
-        console.log("opened");
-        ws.send(
-          JSON.stringify({
-            command: "join_room",
-            room: room,
-          })
-        );
-        if (created == "created") {
-          isCreated = true;
-          navigator.mediaDevices
-            .getUserMedia({
-              video: true,
-              audio: true,
+        const created = '{{created}}'
+        const room = '{{room}}'
+        let stream;
+        let rtcpeerconnection;
+        let isCreated;
+        const call_btn = document.getElementById("call")
+        const our_video = document.getElementById("ours")
+        const remote_video = document.getElementById("remote")
+        const ws = new WebSocket('ws://127.0.0.1:8000/ws/')
+        console.log(created)
+        ws.onopen = () =>{
+          console.log("opened")
+          ws.send(JSON.stringify({
+            'command':'join_group',
+            'room':room
+          }))
+          if(created == 'created'){
+            isCreated = true;
+            console.log(isCreated)
+            navigator.mediaDevices.getUserMedia(({
+              'video':true,
+              'audio':true
+            })).then(s =>{
+              stream = s
+              our_video.srcObject = s
+              our_video.onloadedmetadata = () =>{
+                our_video.play()
+              }
             })
-            .then((s) => {
-              stream = s;
-              our_video.srcObject = s;
-              our_video.onloadeddata = () => {
-                our_video.play();
-              };
-            });
-          console.log(isCreated);
-        } else {
-          isCreated = false;
-          navigator.mediaDevices
-            .getUserMedia({
-              video: true,
-              audio: true,
+          }
+          else{
+            isCreated = false
+            navigator.mediaDevices.getUserMedia(({
+              'video':true,
+              'audio':true
+            })).then(s =>{
+              stream = s
+              our_video.srcObject = s
+              our_video.onloadedmetadata = () =>{
+                our_video.play()
+              }
+              ws.send(JSON.stringify({
+                'command':'join',
+                'room':room
+              }))
             })
-            .then((s) => {
-              stream = s;
-              our_video.srcObject = s;
-              our_video.onloadeddata = () => {
-                our_video.play();
-              };
-              ws.send(
-                JSON.stringify({
-                  command: "join",
-                  room: room,
-                })
-              );
-            });
-          console.log(isCreated);
-        }
-      };
-      ws.onmessage = (e) => {
-        const data = JSON.parse(e.data);
-        console.log(data);
-        if (data["command"] == "join") {
-          if (isCreated) {
-            call_btn.style.display = "block";
-          }
-        } else if (data["command"] == "offer") {
-          if (isCreated == false) {
-            createanswer(data["offer"]);
-          }
-        } else if (data["command"] == "answer") {
-          if (isCreated) {
-            rtcpeerconnection.setRemoteDescription(data["answer"]);
-            console.log("answer set as remote");
-          }
-        } else if (data["command"] == "candidate") {
-          if (data["iscreated"] != isCreated) {
-            const IceCandidate = new RTCIceCandidate(data["candidate"]);
-            rtcpeerconnection.addIceCandidate(IceCandidate);
+            console.log(isCreated)
           }
         }
-      };
-      call_btn.onclick = () => {
-        createoffer();
-      };
-      function createoffer() {
-        console.log("offer started");
-        rtcpeerconnection = new RTCPeerConnection(iceServers);
-        rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
-        rtcpeerconnection.ontrack = OnTrackFunc;
-        stream.getTracks().forEach((track) => {
+        ws.onmessage = (e) =>{
+          const data = JSON.parse(e.data)
+          console.log(data)
+          if(data['command'] == 'ready'){
+            if(isCreated){
+            call_btn.style.display = 'block'
+            }
+          }
+          else if(data['command'] == 'offer'){
+            if(isCreated == false){
+              createanswer(data['offer'])
+            }
+          }
+          else if(data['command'] == 'answer'){
+            if(isCreated){
+              rtcpeerconnection.setRemoteDescription(data['answer'])
+            }
+          }
+          else if(data['command'] == 'candidate'){
+            if(data['iscreated'] != isCreated){
+              const IceCandidate = new RTCIceCandidate(data['candidate'])
+              rtcpeerconnection.addIceCandidate(data['candidate'])
+            }
+          }
+        }
+        call_btn.onclick = () =>{
+          createoffer()
+        }
+        function createoffer() {
+          rtcpeerconnection = new RTCPeerConnection(iceServers)
+          rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
+          rtcpeerconnection.ontrack = OnTrackFunction;
+          console.log(stream)
+          stream.getTracks().forEach(track => {
           rtcpeerconnection.addTrack(track, stream);
-        });
-        rtcpeerconnection.createOffer().then((offer) => {
-          rtcpeerconnection.setLocalDescription(offer);
-          ws.send(
-            JSON.stringify({
-              command: "offer",
-              offer: offer,
-              room: room,
-            })
-          );
-        });
-      }
-      function createanswer(offer) {
-        console.log("answer started");
-        rtcpeerconnection = new RTCPeerConnection(iceServers);
-        rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
-        rtcpeerconnection.ontrack = OnTrackFunc;
-        stream.getTracks().forEach((track) => {
-          rtcpeerconnection.addTrack(track, stream);
-        });
-        rtcpeerconnection.setRemoteDescription(offer);
-        rtcpeerconnection.createAnswer().then((answer) => {
-          rtcpeerconnection.setLocalDescription(answer);
-          ws.send(
-            JSON.stringify({
-              command: "answer",
-              answer: answer,
-              room: room,
-            })
-          );
-        });
-      }
-      function OnIceCandidateFunc(e) {
-        if (e.candidate) {
-          ws.send(
-            JSON.stringify({
-              command: "candidate",
-              candidate: e.candidate,
-              iscreated: isCreated,
-              room: room,
-            })
-          );
+      });
+      rtcpeerconnection.createOffer().then(offer =>{
+        rtcpeerconnection.setLocalDescription(offer)
+        ws.send(JSON.stringify({
+          'command':'offer',
+          'offer':offer,
+          'room':room
+        }))
+      })
         }
-      }
-      function OnTrackFunc(e) {
-        remote_video.srcObject = e.streams[0];
-        remote_video.onloadedmetadata = () => {
-          remote_video.play();
-        };
-      }
+        function createanswer(offer) {
+          rtcpeerconnection = new RTCPeerConnection(iceServers)
+          rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
+          rtcpeerconnection.ontrack = OnTrackFunction;
+          console.log(stream)
+          stream.getTracks().forEach(track => {
+          rtcpeerconnection.addTrack(track, stream);
+      });
+      rtcpeerconnection.setRemoteDescription(offer)
+      rtcpeerconnection.createAnswer().then(answer =>{
+        rtcpeerconnection.setLocalDescription(answer)
+        ws.send(JSON.stringify({
+          'command':'answer',
+          'answer':answer,
+          'room':room
+        }))
+      })
+        }
+        function OnIceCandidateFunc(e) {
+          console.log(e.candidate)
+          if(e.candidate){
+            ws.send(JSON.stringify({
+              'command':'candidate',
+              'candidate':e.candidate,
+              'iscreated':isCreated,
+              'room':room
+            }))
+          }
+        }
+        function OnTrackFunction(e) {
+          remote_video.srcObject = e.streams[0]
+          remote_video.onloadedmetadata = () =>{
+            remote_video.play()
+          }
+
+        }
+      // const our_video = document.getElementById("ours");
+      // const remote_video = document.getElementById("remote");
+      // const call_btn = document.getElementById("call");
+      // let stream;
+      // let rtcpeerconnection;
+      // const created = "{{created}}";
+      // const room = "{{room}}";
+      // let isCreated;
+      // let camera = document.getElementById("camera");
+      // camera.onclick = () => {
+      //   if (stream.getTracks()[1].enabled == true) {
+      //     stream.getTracks()[1].enabled = false;
+      //     camera.innerText = "Unmute";
+      //   } else {
+      //     stream.getTracks()[1].enabled = true;
+      //     camera.innerText = "Mute";
+      //   }
+      // };
+
+      // const ws = new WebSocket("ws://127.0.0.1:8000/ws/");
+      // ws.onopen = () => {
+      //   console.log("opened");
+      //   ws.send(
+      //     JSON.stringify({
+      //       command: "join_room",
+      //       room: room,
+      //     })
+      //   );
+      //   if (created == "created") {
+      //     isCreated = true;
+      //     navigator.mediaDevices
+      //       .getUserMedia({
+      //         video: true,
+      //         audio: true,
+      //       })
+      //       .then((s) => {
+      //         stream = s;
+      //         our_video.srcObject = s;
+      //         our_video.onloadeddata = () => {
+      //           our_video.play();
+      //         };
+      //       });
+      //     console.log(isCreated);
+      //   } else {
+      //     isCreated = false;
+      //     navigator.mediaDevices
+      //       .getUserMedia({
+      //         video: true,
+      //         audio: true,
+      //       })
+      //       .then((s) => {
+      //         stream = s;
+      //         our_video.srcObject = s;
+      //         our_video.onloadeddata = () => {
+      //           our_video.play();
+      //         };
+      //         ws.send(
+      //           JSON.stringify({
+      //             command: "join",
+      //             room: room,
+      //           })
+      //         );
+      //       });
+      //     console.log(isCreated);
+      //   }
+      // };
+      // ws.onmessage = (e) => {
+      //   const data = JSON.parse(e.data);
+      //   console.log(data);
+      //   if (data["command"] == "join") {
+      //     if (isCreated) {
+      //       call_btn.style.display = "block";
+      //     }
+      //   } else if (data["command"] == "offer") {
+      //     if (isCreated == false) {
+      //       createanswer(data["offer"]);
+      //     }
+      //   } else if (data["command"] == "answer") {
+      //     if (isCreated) {
+      //       rtcpeerconnection.setRemoteDescription(data["answer"]);
+      //       console.log("answer set as remote");
+      //     }
+      //   } else if (data["command"] == "candidate") {
+      //     if (data["iscreated"] != isCreated) {
+      //       const IceCandidate = new RTCIceCandidate(data["candidate"]);
+      //       rtcpeerconnection.addIceCandidate(IceCandidate);
+      //     }
+      //   }
+      // };
+      // call_btn.onclick = () => {
+      //   createoffer();
+      // };
+      // function createoffer() {
+      //   console.log("offer started");
+      //   rtcpeerconnection = new RTCPeerConnection(iceServers);
+      //   rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
+      //   rtcpeerconnection.ontrack = OnTrackFunc;
+      //   stream.getTracks().forEach((track) => {
+      //     rtcpeerconnection.addTrack(track, stream);
+      //   });
+      //   rtcpeerconnection.createOffer().then((offer) => {
+      //     rtcpeerconnection.setLocalDescription(offer);
+      //     ws.send(
+      //       JSON.stringify({
+      //         command: "offer",
+      //         offer: offer,
+      //         room: room,
+      //       })
+      //     );
+      //   });
+      // }
+      // function createanswer(offer) {
+      //   console.log("answer started");
+      //   rtcpeerconnection = new RTCPeerConnection(iceServers);
+      //   rtcpeerconnection.onicecandidate = OnIceCandidateFunc;
+      //   rtcpeerconnection.ontrack = OnTrackFunc;
+      //   stream.getTracks().forEach((track) => {
+      //     rtcpeerconnection.addTrack(track, stream);
+      //   });
+      //   rtcpeerconnection.setRemoteDescription(offer);
+      //   rtcpeerconnection.createAnswer().then((answer) => {
+      //     rtcpeerconnection.setLocalDescription(answer);
+      //     ws.send(
+      //       JSON.stringify({
+      //         command: "answer",
+      //         answer: answer,
+      //         room: room,
+      //       })
+      //     );
+      //   });
+      // }
+      // function OnIceCandidateFunc(e) {
+      //   if (e.candidate) {
+      //     ws.send(
+      //       JSON.stringify({
+      //         command: "candidate",
+      //         candidate: e.candidate,
+      //         iscreated: isCreated,
+      //         room: room,
+      //       })
+      //     );
+      //   }
+      // }
+      // function OnTrackFunc(e) {
+      //   remote_video.srcObject = e.streams[0];
+      //   remote_video.onloadedmetadata = () => {
+      //     remote_video.play();
+      //   };
+      // }
     </script>
     <!-- Optional JavaScript; choose one of the two! -->
 
